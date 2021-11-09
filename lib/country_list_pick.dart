@@ -1,5 +1,6 @@
 import 'package:country_list_pick/country_selection_theme.dart';
 import 'package:country_list_pick/selection_list.dart';
+import 'package:country_list_pick/slide_top.dart';
 import 'package:country_list_pick/support/code_countries_en.dart';
 import 'package:country_list_pick/support/code_country.dart';
 import 'package:country_list_pick/support/code_countrys.dart';
@@ -76,21 +77,27 @@ class _CountryListPickState extends State<CountryListPick> {
       CountryTheme? theme) async {
     final result = await Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => SelectionList(
-            elements,
-            selectedItem,
-            appBar: widget.appBar ??
-                AppBar(
-                  backgroundColor: Theme.of(context).appBarTheme.color,
+        SlideTopRoute(
+            page: SelectionList(
+          elements,
+          selectedItem,
+          appBar: widget.appBar ??
+              AppBar(
+                  backgroundColor: Theme.of(context).backgroundColor,
+                  centerTitle: true,
+                  elevation: 0,
                   title: Text("Select Country"),
-                ),
-            theme: theme,
-            countryBuilder: widget.countryBuilder,
-            useUiOverlay: widget.useUiOverlay,
-            useSafeArea: widget.useSafeArea,
-          ),
-        ));
+                  iconTheme: IconThemeData(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.grey),
+                  titleTextStyle: TextStyle(
+                      color: Theme.of(context).primaryColor, fontSize: 16)),
+          theme: theme,
+          countryBuilder: widget.countryBuilder,
+          useUiOverlay: widget.useUiOverlay,
+          useSafeArea: widget.useSafeArea,
+        )));
 
     setState(() {
       selectedItem = result ?? selectedItem;

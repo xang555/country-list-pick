@@ -77,7 +77,9 @@ class _SelectionListState extends State<SelectionList> {
     Widget scaffold = Scaffold(
       appBar: widget.appBar,
       body: Container(
-        color: Color(0xfff4f4f4),
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Color(0xff26282C)
+            : Color(0xfff4f4f4),
         child: LayoutBuilder(builder: (context, contrainsts) {
           diff = height - contrainsts.biggest.height;
           _heightscroller = (contrainsts.biggest.height) / _alphabet.length;
@@ -93,29 +95,33 @@ class _SelectionListState extends State<SelectionList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Text(
-                            widget.theme?.searchText ?? 'SEARCH',
-                            style: TextStyle(
-                                color:
-                                    widget.theme?.labelColor ?? Colors.black),
-                          ),
-                        ),
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text(
+                              widget.theme?.searchText ?? 'SEARCH',
+                              style: TextStyle(
+                                  color: widget.theme?.labelColor ??
+                                      (Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black)),
+                            )),
                         Container(
-                          color: Colors.white,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.black
+                              : Colors.white,
                           child: TextField(
                             controller: _controller,
                             decoration: InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              contentPadding: EdgeInsets.only(
-                                  left: 15, bottom: 0, top: 0, right: 15),
-                              hintText:
-                                  widget.theme?.searchHintText ?? "Search...",
-                            ),
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                contentPadding: EdgeInsets.only(
+                                    left: 15, bottom: 0, top: 0, right: 15),
+                                hintText:
+                                    widget.theme?.searchHintText ?? "Search...",
+                                hintStyle: TextStyle(color: Colors.grey)),
                             onChanged: _filterElements,
                           ),
                         ),
@@ -124,12 +130,17 @@ class _SelectionListState extends State<SelectionList> {
                           child: Text(
                             widget.theme?.lastPickText ?? 'LAST PICK',
                             style: TextStyle(
-                                color:
-                                    widget.theme?.labelColor ?? Colors.black),
+                                color: widget.theme?.labelColor ??
+                                    (Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black)),
                           ),
                         ),
                         Container(
-                          color: Colors.white,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.black
+                              : Colors.white,
                           child: Material(
                             color: Colors.transparent,
                             child: ListTile(
@@ -190,7 +201,9 @@ class _SelectionListState extends State<SelectionList> {
   Widget getListCountry(CountryCode e) {
     return Container(
       height: 50,
-      color: Colors.white,
+      color: Theme.of(context).brightness == Brightness.dark
+          ? Colors.black
+          : Colors.white,
       child: Material(
         color: Colors.transparent,
         child: ListTile(
@@ -234,7 +247,8 @@ class _SelectionListState extends State<SelectionList> {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: index == posSelected
-                ? widget.theme?.alphabetSelectedBackgroundColor ?? Colors.blue
+                ? widget.theme?.alphabetSelectedBackgroundColor ??
+                    Theme.of(context).primaryColor
                 : Colors.transparent,
             shape: BoxShape.circle,
           ),
@@ -250,7 +264,10 @@ class _SelectionListState extends State<SelectionList> {
                 : TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: widget.theme?.alphabetTextColor ?? Colors.black),
+                    color: widget.theme?.alphabetTextColor ??
+                        (Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black)),
           ),
         ),
       ),
