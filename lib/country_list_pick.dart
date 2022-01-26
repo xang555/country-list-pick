@@ -73,6 +73,23 @@ class _CountryListPickState extends State<CountryListPick> {
     super.initState();
   }
 
+  @override
+  void didUpdateWidget(covariant CountryListPick oldWidget) {
+    if (oldWidget.initialSelection != widget.initialSelection) {
+      if (widget.initialSelection != null) {
+        selectedItem = elements.firstWhere(
+            (e) =>
+                (e.code.toUpperCase() ==
+                    widget.initialSelection!.toUpperCase()) ||
+                (e.dialCode == widget.initialSelection),
+            orElse: () => elements[0] as CountryCode);
+      } else {
+        selectedItem = elements[0];
+      }
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
   void _awaitFromSelectScreen(BuildContext context, PreferredSizeWidget? appBar,
       CountryTheme? theme) async {
     final result = await Navigator.push(
